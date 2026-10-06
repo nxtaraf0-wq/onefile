@@ -1,0 +1,2254 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Web Projects — Portfolio Showcase</title>
+    <meta name="description" content="Explore my websites, web apps and digital projects in a premium showcase portfolio." />
+    <meta property="og:title" content="My Web Projects — Portfolio Showcase" />
+    <meta property="og:description" content="Explore my websites, web apps and digital projects in a premium showcase portfolio." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+
+    <style>
+      /* --- Design Tokens & Reset --- */
+      :root {
+        --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+        /* Dark Theme (Default) */
+        --bg-main: #07090e;
+        --bg-surface: rgba(17, 24, 39, 0.65);
+        --bg-surface-hover: rgba(30, 41, 59, 0.85);
+        --bg-card: rgba(15, 23, 42, 0.6);
+        --bg-card-border: rgba(255, 255, 255, 0.08);
+        --bg-card-border-hover: rgba(99, 102, 241, 0.4);
+        --text-primary: #f8fafc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --accent-primary: #6366f1;
+        --accent-secondary: #a855f7;
+        --accent-cyan: #06b6d4;
+        --accent-glow: rgba(99, 102, 241, 0.25);
+        --badge-bg: rgba(99, 102, 241, 0.12);
+        --badge-text: #818cf8;
+        --badge-border: rgba(99, 102, 241, 0.25);
+        --nav-bg: rgba(7, 9, 14, 0.8);
+        --nav-border: rgba(255, 255, 255, 0.07);
+        --modal-overlay: rgba(3, 7, 18, 0.75);
+        --input-bg: rgba(15, 23, 42, 0.7);
+        --input-border: rgba(255, 255, 255, 0.12);
+        --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.15);
+        --tag-bg: rgba(255, 255, 255, 0.05);
+        --tag-text: #cbd5e1;
+        --star-fill: #f59e0b;
+        --star-empty: #334155;
+      }
+
+      html.light {
+        --bg-main: #f8fafc;
+        --bg-surface: rgba(255, 255, 255, 0.8);
+        --bg-surface-hover: rgba(241, 245, 249, 0.95);
+        --bg-card: rgba(255, 255, 255, 0.75);
+        --bg-card-border: rgba(15, 23, 42, 0.08);
+        --bg-card-border-hover: rgba(99, 102, 241, 0.5);
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #94a3b8;
+        --accent-primary: #4f46e5;
+        --accent-secondary: #9333ea;
+        --accent-cyan: #0891b2;
+        --accent-glow: rgba(99, 102, 241, 0.15);
+        --badge-bg: rgba(79, 70, 229, 0.08);
+        --badge-text: #4f46e5;
+        --badge-border: rgba(79, 70, 229, 0.2);
+        --nav-bg: rgba(248, 250, 252, 0.85);
+        --nav-border: rgba(15, 23, 42, 0.08);
+        --modal-overlay: rgba(15, 23, 42, 0.4);
+        --input-bg: #ffffff;
+        --input-border: rgba(15, 23, 42, 0.15);
+        --shadow-card: 0 10px 25px -5px rgba(15, 23, 42, 0.06);
+        --shadow-glow: 0 0 20px rgba(99, 102, 241, 0.08);
+        --tag-bg: rgba(15, 23, 42, 0.05);
+        --tag-text: #334155;
+        --star-fill: #f59e0b;
+        --star-empty: #cbd5e1;
+      }
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background-color: var(--bg-main);
+        color: var(--text-primary);
+        line-height: 1.6;
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      /* Subtle Ambient Background Mesh */
+      .ambient-glow {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+      }
+
+      .glow-blob {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.15;
+        animation: floatBlob 20s infinite alternate ease-in-out;
+      }
+
+      .glow-blob-1 {
+        top: -10%;
+        left: 20%;
+        width: 600px;
+        height: 600px;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      }
+
+      .glow-blob-2 {
+        top: 40%;
+        right: -10%;
+        width: 500px;
+        height: 500px;
+        background: linear-gradient(135deg, var(--accent-cyan), var(--accent-primary));
+        animation-delay: -7s;
+      }
+
+      .glow-blob-3 {
+        bottom: 5%;
+        left: 10%;
+        width: 450px;
+        height: 450px;
+        background: linear-gradient(135deg, var(--accent-secondary), #ec4899);
+        animation-delay: -14s;
+      }
+
+      @keyframes floatBlob {
+        0% { transform: translate(0, 0) scale(1); }
+        50% { transform: translate(40px, -30px) scale(1.08); }
+        100% { transform: translate(-30px, 40px) scale(0.95); }
+      }
+
+      /* Container */
+      .container {
+        width: 100%;
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Typography Helpers */
+      h1, h2, h3, .font-display {
+        font-family: var(--font-display);
+        letter-spacing: -0.025em;
+      }
+
+      /* --- Navigation Bar --- */
+      .site-header {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 100;
+        background: var(--nav-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--nav-border);
+        transition: background 0.3s ease, border-color 0.3s ease;
+      }
+
+      .nav-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 4.25rem;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        color: var(--text-primary);
+        font-family: var(--font-display);
+        font-weight: 700;
+        font-size: 1.15rem;
+        letter-spacing: 0.05em;
+      }
+
+      .brand-icon {
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 0.65rem;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        box-shadow: 0 4px 12px var(--accent-glow);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        list-style: none;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 0.925rem;
+        font-weight: 600;
+        transition: color 0.2s ease;
+        position: relative;
+        padding: 0.35rem 0;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: var(--text-primary);
+      }
+
+      .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+        border-radius: 2px;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      /* Theme Toggle Button */
+      .theme-btn {
+        background: var(--bg-surface);
+        border: 1px solid var(--bg-card-border);
+        color: var(--text-primary);
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 0.65rem;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+      }
+
+      .theme-btn:hover {
+        background: var(--bg-surface-hover);
+        border-color: var(--accent-primary);
+      }
+
+      /* Mobile Menu Toggle */
+      .menu-toggle {
+        display: none;
+        background: var(--bg-surface);
+        border: 1px solid var(--bg-card-border);
+        color: var(--text-primary);
+        width: 2.4rem;
+        height: 2.4rem;
+        border-radius: 0.65rem;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mobile-menu {
+        display: none;
+        flex-direction: column;
+        padding: 1rem 1.5rem 1.5rem;
+        background: var(--nav-bg);
+        border-bottom: 1px solid var(--nav-border);
+        gap: 1rem;
+      }
+
+      .mobile-menu.open {
+        display: flex;
+      }
+
+      .mobile-menu .nav-link {
+        padding: 0.6rem 0;
+        font-size: 1.05rem;
+      }
+
+      /* --- Hero Section --- */
+      .hero {
+        padding: 5.5rem 0 4rem;
+        text-align: center;
+        position: relative;
+      }
+
+      .badge-group {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 0.85rem;
+        font-size: 0.775rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border-radius: 9999px;
+        background: var(--badge-bg);
+        color: var(--badge-text);
+        border: 1px solid var(--badge-border);
+      }
+
+      .badge-dot {
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 50%;
+        background-color: #10b981;
+        box-shadow: 0 0 8px #10b981;
+        animation: pulseDot 2s infinite;
+      }
+
+      @keyframes pulseDot {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(0.85); }
+      }
+
+      .hero-title {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.25rem;
+        letter-spacing: -0.03em;
+        background: linear-gradient(135deg, var(--text-primary) 30%, var(--accent-primary) 70%, var(--accent-secondary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+        color: var(--text-secondary);
+        max-width: 650px;
+        margin: 0 auto 2.25rem;
+        font-weight: 400;
+      }
+
+      .hero-actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.6rem;
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-radius: 0.75rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        color: #ffffff;
+        border: none;
+        box-shadow: 0 8px 20px -4px var(--accent-glow);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 25px -4px var(--accent-glow);
+      }
+
+      .btn-secondary {
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        border: 1px solid var(--bg-card-border);
+      }
+
+      .btn-secondary:hover {
+        background: var(--bg-surface-hover);
+        border-color: var(--accent-primary);
+        transform: translateY(-2px);
+      }
+
+      /* --- Filter & Search Section --- */
+      .controls-section {
+        padding: 2rem 0 1rem;
+      }
+
+      .controls-wrapper {
+        background: var(--bg-surface);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--bg-card-border);
+        border-radius: 1.25rem;
+        padding: 1.25rem 1.5rem;
+        box-shadow: var(--shadow-card);
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .controls-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .search-box {
+        position: relative;
+        flex: 1;
+        min-width: 260px;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        pointer-events: none;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 0.75rem 2.5rem 0.75rem 2.85rem;
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        border-radius: 0.75rem;
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 0.95rem;
+        outline: none;
+        transition: all 0.2s ease;
+      }
+
+      .search-input:focus {
+        border-color: var(--accent-primary);
+        box-shadow: 0 0 0 3px var(--accent-glow);
+      }
+
+      .search-clear {
+        position: absolute;
+        right: 0.85rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 0.25rem;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      .search-clear:hover {
+        color: var(--text-primary);
+      }
+
+      .search-clear.visible {
+        display: flex;
+      }
+
+      .sort-box {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      .sort-label {
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+        white-space: nowrap;
+        font-weight: 500;
+      }
+
+      .sort-select {
+        padding: 0.7rem 2rem 0.7rem 1rem;
+        background: var(--input-bg);
+        border: 1px solid var(--input-border);
+        border-radius: 0.75rem;
+        color: var(--text-primary);
+        font-family: inherit;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        outline: none;
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 1rem;
+        transition: border-color 0.2s ease;
+      }
+
+      .sort-select:focus {
+        border-color: var(--accent-primary);
+      }
+
+      .category-filters {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        overflow-x: auto;
+        padding-bottom: 0.25rem;
+        scrollbar-width: thin;
+      }
+
+      .filter-btn {
+        padding: 0.55rem 1.15rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border-radius: 0.65rem;
+        background: transparent;
+        color: var(--text-secondary);
+        border: 1px solid transparent;
+        cursor: pointer;
+        white-space: nowrap;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .filter-btn:hover {
+        color: var(--text-primary);
+        background: var(--tag-bg);
+      }
+
+      .filter-btn.active {
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        color: #ffffff;
+        box-shadow: 0 4px 12px var(--accent-glow);
+      }
+
+      .results-count-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+        padding: 0 0.25rem;
+        font-size: 0.875rem;
+        color: var(--text-muted);
+      }
+
+      /* --- Project Cards Grid --- */
+      .projects-section {
+        padding: 1.5rem 0 5rem;
+      }
+
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.75rem;
+      }
+
+      .project-card {
+        background: var(--bg-card);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--bg-card-border);
+        border-radius: 1.25rem;
+        padding: 1.65rem;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        cursor: pointer;
+        position: relative;
+        box-shadow: var(--shadow-card);
+      }
+
+      .project-card:hover {
+        transform: translateY(-6px);
+        border-color: var(--bg-card-border-hover);
+        box-shadow: var(--shadow-card), var(--shadow-glow);
+      }
+
+      .card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 0.75rem;
+        margin-bottom: 1.15rem;
+      }
+
+      .card-icon-wrap {
+        width: 3.25rem;
+        height: 3.25rem;
+        border-radius: 0.85rem;
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(168, 85, 247, 0.15));
+        border: 1px solid rgba(99, 102, 241, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-primary);
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+      }
+
+      .project-card:hover .card-icon-wrap {
+        transform: scale(1.08) rotate(2deg);
+      }
+
+      .card-meta-badges {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 0.35rem;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-size: 0.725rem;
+        font-weight: 700;
+        padding: 0.2rem 0.6rem;
+        border-radius: 9999px;
+        background: rgba(16, 185, 129, 0.12);
+        color: #10b981;
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .status-dot {
+        width: 0.4rem;
+        height: 0.4rem;
+        border-radius: 50%;
+        background: #10b981;
+      }
+
+      .category-pill {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      .project-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 0.35rem;
+        color: var(--text-primary);
+      }
+
+      .project-type {
+        font-size: 0.8rem;
+        color: var(--accent-primary);
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .project-desc {
+        font-size: 0.925rem;
+        color: var(--text-secondary);
+        margin-bottom: 1.25rem;
+        line-height: 1.55;
+        flex-grow: 1;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Rating Section */
+      .card-rating-block {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.65rem 0.85rem;
+        background: var(--tag-bg);
+        border-radius: 0.65rem;
+        margin-bottom: 1.15rem;
+      }
+
+      .rating-stars {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.15rem;
+      }
+
+      .star-svg {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .rating-val-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .rating-num {
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--text-primary);
+      }
+
+      .rating-label {
+        font-size: 0.725rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      /* Features preview */
+      .features-list {
+        list-style: none;
+        margin-bottom: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+      }
+
+      .feature-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.825rem;
+        color: var(--text-secondary);
+      }
+
+      .feature-item svg {
+        flex-shrink: 0;
+        color: var(--accent-cyan);
+      }
+
+      /* Tech tags */
+      .tech-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .tech-tag {
+        font-size: 0.725rem;
+        font-weight: 600;
+        padding: 0.25rem 0.65rem;
+        border-radius: 0.45rem;
+        background: var(--tag-bg);
+        color: var(--tag-text);
+        border: 1px solid var(--bg-card-border);
+      }
+
+      /* Card actions */
+      .card-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: auto;
+      }
+
+      .btn-card-visit {
+        flex: 1;
+        padding: 0.65rem 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: 0.65rem;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        color: #ffffff;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+      }
+
+      .btn-card-visit:hover {
+        opacity: 0.92;
+        transform: translateY(-1px);
+      }
+
+      .btn-card-details {
+        padding: 0.65rem 0.85rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        border-radius: 0.65rem;
+        background: var(--tag-bg);
+        color: var(--text-primary);
+        border: 1px solid var(--bg-card-border);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease;
+      }
+
+      .btn-card-details:hover {
+        background: var(--bg-surface-hover);
+        border-color: var(--accent-primary);
+      }
+
+      /* Empty State */
+      .empty-state {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 4rem 1.5rem;
+        background: var(--bg-card);
+        border: 1px dashed var(--bg-card-border);
+        border-radius: 1.5rem;
+      }
+
+      .empty-icon {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: 1rem;
+        background: var(--tag-bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.25rem;
+        color: var(--text-muted);
+      }
+
+      .empty-title {
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+
+      .empty-desc {
+        color: var(--text-secondary);
+        margin-bottom: 1.5rem;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 0.95rem;
+      }
+
+      /* --- About Section --- */
+      .about-section {
+        padding: 5rem 0;
+        position: relative;
+        border-top: 1px solid var(--nav-border);
+      }
+
+      .section-header {
+        text-align: center;
+        max-width: 700px;
+        margin: 0 auto 3rem;
+      }
+
+      .section-badge {
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent-primary);
+        margin-bottom: 0.75rem;
+      }
+
+      .section-title {
+        font-size: clamp(2rem, 4vw, 2.75rem);
+        font-weight: 800;
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        line-height: 1.6;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+      }
+
+      .stat-card {
+        background: var(--bg-surface);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--bg-card-border);
+        border-radius: 1.25rem;
+        padding: 2rem 1.5rem;
+        text-align: center;
+        transition: transform 0.2s ease, border-color 0.2s ease;
+      }
+
+      .stat-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent-primary);
+      }
+
+      .stat-number {
+        font-family: var(--font-display);
+        font-size: 2.75rem;
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .stat-label {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+
+      /* --- Why Explore Features Section --- */
+      .features-section {
+        padding: 5rem 0;
+        border-top: 1px solid var(--nav-border);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+      }
+
+      .why-card {
+        background: var(--bg-card);
+        border: 1px solid var(--bg-card-border);
+        border-radius: 1.25rem;
+        padding: 1.75rem;
+        transition: all 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .why-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--accent-primary);
+        box-shadow: var(--shadow-card);
+      }
+
+      .why-num {
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: var(--accent-primary);
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .why-title {
+        font-size: 1.15rem;
+        font-weight: 700;
+        margin-bottom: 0.65rem;
+        color: var(--text-primary);
+      }
+
+      .why-desc {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        line-height: 1.55;
+      }
+
+      /* --- Footer --- */
+      .site-footer {
+        padding: 4rem 0 2.5rem;
+        border-top: 1px solid var(--nav-border);
+        background: var(--bg-surface);
+        position: relative;
+        z-index: 1;
+      }
+
+      .footer-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-brand-wrap {
+        max-width: 360px;
+      }
+
+      .footer-tagline {
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-top: 0.75rem;
+      }
+
+      .footer-nav {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .footer-link {
+        text-decoration: none;
+        color: var(--text-secondary);
+        font-size: 0.925rem;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+
+      .footer-link:hover {
+        color: var(--text-primary);
+      }
+
+      .footer-bottom {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--bg-card-border);
+        font-size: 0.875rem;
+        color: var(--text-muted);
+      }
+
+      /* --- Modal Dialog --- */
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        background: var(--modal-overlay);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+      }
+
+      .modal-backdrop.open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal-window {
+        background: var(--bg-main);
+        border: 1px solid var(--bg-card-border);
+        border-radius: 1.5rem;
+        width: 100%;
+        max-width: 680px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+        padding: 2.25rem;
+        position: relative;
+        transform: scale(0.95) translateY(10px);
+        transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .modal-backdrop.open .modal-window {
+        transform: scale(1) translateY(0);
+      }
+
+      .modal-close-btn {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        border-radius: 50%;
+        background: var(--tag-bg);
+        border: 1px solid var(--bg-card-border);
+        color: var(--text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .modal-close-btn:hover {
+        background: var(--bg-surface-hover);
+        color: var(--text-primary);
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-icon {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 1rem;
+        background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(168, 85, 247, 0.2));
+        border: 1px solid rgba(99, 102, 241, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--accent-primary);
+        flex-shrink: 0;
+      }
+
+      .modal-header-meta h3 {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--text-primary);
+        margin-bottom: 0.35rem;
+      }
+
+      .modal-tags-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+
+      .modal-desc {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        line-height: 1.65;
+        margin-bottom: 1.75rem;
+      }
+
+      .modal-rating-card {
+        background: var(--bg-surface);
+        border: 1px solid var(--bg-card-border);
+        border-radius: 0.85rem;
+        padding: 0.85rem 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.75rem;
+      }
+
+      .modal-section-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .modal-features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.65rem;
+        margin-bottom: 1.75rem;
+      }
+
+      .modal-feature-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .modal-feature-item svg {
+        color: #10b981;
+        flex-shrink: 0;
+      }
+
+      .modal-tech-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .modal-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      /* Floating Back to Top */
+      .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+        color: #ffffff;
+        border: none;
+        box-shadow: 0 4px 15px var(--accent-glow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(15px);
+        transition: all 0.25s ease;
+        z-index: 90;
+      }
+
+      .back-to-top.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      .back-to-top:hover {
+        transform: translateY(-3px);
+      }
+
+      /* Responsive Breakpoints */
+      @media (max-width: 1024px) {
+        .projects-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .stats-grid,
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .nav-links {
+          display: none;
+        }
+        .menu-toggle {
+          display: inline-flex;
+        }
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero {
+          padding: 3.5rem 0 2.5rem;
+        }
+        .controls-top {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .search-box {
+          min-width: 100%;
+        }
+        .sort-box {
+          justify-content: space-between;
+        }
+        .stats-grid,
+        .features-grid {
+          grid-template-columns: 1fr;
+        }
+        .modal-features-grid {
+          grid-template-columns: 1fr;
+        }
+        .modal-window {
+          padding: 1.5rem;
+        }
+        .footer-top {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1.5rem;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.5rem;
+        }
+      }
+
+      /* Star partial fill styling */
+      .star-mask {
+        display: inline-block;
+        position: relative;
+        width: 1rem;
+        height: 1rem;
+      }
+      .star-mask svg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 1rem;
+        height: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Ambient Animated Background -->
+    <div class="ambient-glow" aria-hidden="true">
+      <div class="glow-blob glow-blob-1"></div>
+      <div class="glow-blob glow-blob-2"></div>
+      <div class="glow-blob glow-blob-3"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="site-header" id="navbar">
+      <div class="container">
+        <div class="nav-inner">
+          <!-- Left: Logo & Wordmark -->
+          <a href="#" class="brand" aria-label="My Projects Home">
+            <div class="brand-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                <polyline points="2 17 12 22 22 17"></polyline>
+                <polyline points="2 12 12 17 22 12"></polyline>
+              </svg>
+            </div>
+            <span>MY PROJECTS</span>
+          </a>
+
+          <!-- Center: Navigation Links -->
+          <ul class="nav-links">
+            <li><a href="#hero" class="nav-link active">Home</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#about" class="nav-link">About</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+          </ul>
+
+          <!-- Right: Actions & Theme Toggle -->
+          <div class="nav-actions">
+            <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle Theme">
+              <!-- Sun Icon -->
+              <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <circle cx="12" cy="12" r="5"></circle>
+                <line x1="12" y1="1" x2="12" y2="3"></line>
+                <line x1="12" y1="21" x2="12" y2="23"></line>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                <line x1="1" y1="12" x2="3" y2="12"></line>
+                <line x1="21" y1="12" x2="23" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+              </svg>
+              <!-- Moon Icon -->
+              <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+              </svg>
+            </button>
+
+            <!-- Mobile Hamburger Button -->
+            <button class="menu-toggle" id="menu-toggle" aria-label="Toggle mobile navigation menu" aria-expanded="false">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="#hero" class="nav-link active">Home</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#features" class="nav-link">Features</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero Section -->
+      <section class="hero" id="hero">
+        <div class="container">
+          <div class="badge-group">
+            <span class="badge">
+              <span class="badge-dot"></span>
+              BUILD • CREATE • EXPLORE
+            </span>
+            <span class="badge" style="background: var(--tag-bg); color: var(--text-secondary); border-color: var(--bg-card-border);">
+              5 Projects • 5 Active
+            </span>
+          </div>
+
+          <h1 class="hero-title">MY WEB PROJECTS</h1>
+          <p class="hero-subtitle">
+            Explore my websites, web apps and digital projects. A curated collection of websites and web applications I have created.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">
+              <span>Explore Projects</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+              </svg>
+            </a>
+            <a href="#about" class="btn btn-secondary">
+              <span>About Me</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Project Search, Filter & Sort Controls -->
+      <section class="controls-section" id="controls">
+        <div class="container">
+          <div class="controls-wrapper">
+            <!-- Top row: Search input & Sort options -->
+            <div class="controls-top">
+              <div class="search-box">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input
+                  type="text"
+                  id="search-input"
+                  class="search-input"
+                  placeholder="Search projects..."
+                  aria-label="Search projects by name, description, features or technologies"
+                  autocomplete="off"
+                />
+                <button id="search-clear" class="search-clear" aria-label="Clear search query" title="Clear">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              <div class="sort-box">
+                <label for="sort-select" class="sort-label">Sort by:</label>
+                <select id="sort-select" class="sort-select" aria-label="Sort projects">
+                  <option value="newest">Newest</option>
+                  <option value="rating">Highest Rated</option>
+                  <option value="az">A-Z</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Bottom row: Category Filter Tabs -->
+            <div class="category-filters" id="category-filters" role="tablist" aria-label="Project category filter">
+              <button class="filter-btn active" data-category="All" role="tab" aria-selected="true">All</button>
+              <button class="filter-btn" data-category="Web Apps" role="tab" aria-selected="false">Web Apps</button>
+              <button class="filter-btn" data-category="Productivity" role="tab" aria-selected="false">Productivity</button>
+              <button class="filter-btn" data-category="Travel" role="tab" aria-selected="false">Travel</button>
+              <button class="filter-btn" data-category="Finance" role="tab" aria-selected="false">Finance</button>
+              <button class="filter-btn" data-category="Search Engine" role="tab" aria-selected="false">Search Engine</button>
+              <button class="filter-btn" data-category="Wallpaper" role="tab" aria-selected="false">Wallpaper</button>
+            </div>
+          </div>
+
+          <!-- Counter Bar -->
+          <div class="results-count-bar">
+            <span id="results-count">Showing 5 of 5 projects</span>
+            <span id="active-filter-indicator">Category: All</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Projects Grid Section -->
+      <section class="projects-section" id="projects">
+        <div class="container">
+          <div class="projects-grid" id="projects-grid">
+            <!-- Project cards will be rendered dynamically by JavaScript -->
+          </div>
+        </div>
+      </section>
+
+      <!-- About Section -->
+      <section class="about-section" id="about">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-badge">Behind The Code</span>
+            <h2 class="section-title">About This Collection</h2>
+            <p class="section-subtitle">
+              This website is a personal showcase of web projects created with a focus on useful ideas, clean interfaces, responsive design and modern web experiences.
+            </p>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-number">5</div>
+              <div class="stat-label">Projects</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">5</div>
+              <div class="stat-label">Active Projects</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">5+</div>
+              <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">Web Based</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features / Why Explore Section -->
+      <section class="features-section" id="features">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-badge">Principles</span>
+            <h2 class="section-title">Why Explore My Projects?</h2>
+            <p class="section-subtitle">
+              Built with care, precision, and a user-centric mindset across all devices.
+            </p>
+          </div>
+
+          <div class="features-grid">
+            <div class="why-card">
+              <span class="why-num">01</span>
+              <h3 class="why-title">Modern Design</h3>
+              <p class="why-desc">Clean, modern and responsive interfaces crafted with precision and attention to detail.</p>
+            </div>
+            <div class="why-card">
+              <span class="why-num">02</span>
+              <h3 class="why-title">Useful Ideas</h3>
+              <p class="why-desc">Projects created around practical and creative ideas that address real everyday digital needs.</p>
+            </div>
+            <div class="why-card">
+              <span class="why-num">03</span>
+              <h3 class="why-title">Mobile Friendly</h3>
+              <p class="why-desc">Designed to work smoothly across phones, tablets and desktops with touch-optimized interfaces.</p>
+            </div>
+            <div class="why-card">
+              <span class="why-num">04</span>
+              <h3 class="why-title">Continuous Development</h3>
+              <p class="why-desc">Projects continue to receive iterative improvements, new features, and performance enhancements.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-top">
+          <div class="footer-brand-wrap">
+            <a href="#" class="brand" aria-label="My Projects Home">
+              <div class="brand-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="12 2 2 7 12 12 22 7 12 2"></polyline>
+                  <polyline points="2 17 12 22 22 17"></polyline>
+                  <polyline points="2 12 12 17 22 12"></polyline>
+                </svg>
+              </div>
+              <span>MY PROJECTS</span>
+            </a>
+            <p class="footer-tagline">Building ideas into digital experiences.</p>
+          </div>
+
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <a href="#hero" class="footer-link">Home</a>
+            <a href="#projects" class="footer-link">Projects</a>
+            <a href="#about" class="footer-link">About</a>
+            <a href="#features" class="footer-link">Features</a>
+          </nav>
+        </div>
+
+        <div class="footer-bottom">
+          <p>© 2026 My Web Projects. All rights reserved.</p>
+          <p>Designed &amp; Built with HTML, CSS &amp; JavaScript</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Project Details Modal -->
+    <div class="modal-backdrop" id="project-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-window">
+        <button class="modal-close-btn" id="modal-close" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <div class="modal-header">
+          <div class="modal-icon" id="modal-icon">
+            <!-- Dynamic SVG Icon -->
+          </div>
+          <div class="modal-header-meta">
+            <h3 id="modal-title">Project Title</h3>
+            <div class="modal-tags-row">
+              <span class="status-badge" id="modal-status">
+                <span class="status-dot"></span> Active
+              </span>
+              <span class="badge" id="modal-category" style="background:var(--tag-bg); color:var(--text-secondary); border-color:var(--bg-card-border);">Category</span>
+              <span class="badge" id="modal-type" style="background:var(--badge-bg); color:var(--badge-text); border-color:var(--badge-border);">Type</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="modal-desc" id="modal-description">Project description goes here.</p>
+
+        <div class="modal-rating-card">
+          <span class="rating-label" style="font-size: 0.85rem; font-weight:600;">My Rating</span>
+          <div class="rating-val-wrap">
+            <div class="rating-stars" id="modal-stars"></div>
+            <span class="rating-num" id="modal-rating-num">4.8/5</span>
+          </div>
+        </div>
+
+        <div class="modal-section-title">Key Features</div>
+        <div class="modal-features-grid" id="modal-features">
+          <!-- Dynamic Feature items -->
+        </div>
+
+        <div class="modal-section-title">Technologies Used</div>
+        <div class="modal-tech-list" id="modal-tech">
+          <!-- Dynamic Tech tags -->
+        </div>
+
+        <div class="modal-actions">
+          <a href="#" id="modal-visit-link" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="flex:1;">
+            <span>Visit Website</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+          <button id="modal-dismiss" class="btn btn-secondary">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top of page" title="Back to top">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="19" x2="12" y2="5"></line>
+        <polyline points="5 12 12 5 19 12"></polyline>
+      </svg>
+    </button>
+
+    <!-- Vanilla JavaScript Application Logic -->
+    <script>
+      /**
+       * =========================================================================
+       * PROJECTS DATA STORE
+       * All project details, ratings, URLs and features are editable here.
+       * =========================================================================
+       */
+      const projectsData = [
+        {
+          id: 'am-wallpaper-4k',
+          order: 1,
+          name: 'AM WALLPAPER 4K',
+          url: 'https://am-wallpaper-4k.vercel.app/',
+          category: 'Wallpaper',
+          type: 'Web App',
+          status: 'Active',
+          rating: 4.8,
+          description: 'A modern wallpaper website focused on high-quality 4K wallpapers with a clean and visually engaging browsing experience.',
+          features: [
+            '4K Wallpaper Collection',
+            'Modern Gallery',
+            'Easy Browsing',
+            'Mobile Friendly',
+            'Responsive UI',
+            'Fast User Experience'
+          ],
+          technology: ['HTML', 'CSS', 'JavaScript', 'Web'],
+          icon: 'wallpaper'
+        },
+        {
+          id: 'am-planer',
+          order: 2,
+          name: 'AM PLANER',
+          url: 'https://am-planer.vercel.app',
+          category: 'Productivity',
+          type: 'Web App',
+          status: 'Active',
+          rating: 4.7,
+          description: 'A simple and modern productivity planner designed to help users organize tasks, plans and daily activities.',
+          features: [
+            'Daily Planning',
+            'Task Management',
+            'Productivity Tools',
+            'Clean Dashboard',
+            'Responsive Design',
+            'Modern Interface'
+          ],
+          technology: ['HTML', 'CSS', 'JavaScript', 'Web App'],
+          icon: 'calendar'
+        },
+        {
+          id: 'explore-the-world',
+          order: 3,
+          name: 'EXPLORE THE WORLD',
+          url: 'https://explore-the-world-bice.vercel.app',
+          category: 'Travel',
+          type: 'Website',
+          status: 'Active',
+          rating: 4.9,
+          description: 'A visually engaging exploration website designed to help users discover countries, places and interesting destinations around the world.',
+          features: [
+            'World Exploration',
+            'Country Discovery',
+            'Places Guide',
+            'Search Experience',
+            'Visual Content',
+            'Responsive Design'
+          ],
+          technology: ['HTML', 'CSS', 'JavaScript', 'Web'],
+          icon: 'globe'
+        },
+        {
+          id: 'finance-tracker',
+          order: 4,
+          name: 'FINANCE TRACKER',
+          url: 'https://finance-tracker-alpha-sepia-94.vercel.app',
+          category: 'Finance',
+          type: 'Web App',
+          status: 'Active',
+          rating: 4.6,
+          description: 'A personal finance tracking web application designed to help users monitor income, expenses and financial activity.',
+          features: [
+            'Income Tracking',
+            'Expense Tracking',
+            'Financial Overview',
+            'Statistics',
+            'Transaction Management',
+            'Mobile Friendly'
+          ],
+          technology: ['HTML', 'CSS', 'JavaScript', 'Web App'],
+          icon: 'finance'
+        },
+        {
+          id: 'seekora',
+          order: 5,
+          name: 'SEEKORA',
+          url: 'https://nxtaraf0-wq.github.io/Seekora/',
+          category: 'Search Engine',
+          type: 'Web App',
+          status: 'Active',
+          rating: 4.9,
+          description: 'A modern search-engine project designed to provide a clean and simple search experience with a focused interface.',
+          features: [
+            'Search Interface',
+            'Clean UI',
+            'Fast Experience',
+            'Responsive Design',
+            'Modern Layout',
+            'Web Search Project'
+          ],
+          technology: ['HTML', 'CSS', 'JavaScript', 'Search'],
+          icon: 'search'
+        }
+      ];
+
+      /**
+       * SVG Icons mapping for domain-specific visual representation
+       */
+      const projectIcons = {
+        wallpaper: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></polyline>
+          <circle cx="8.5" cy="8.5" r="1.5"></circle>
+          <polyline points="21 15 16 10 5 21"></polyline>
+        </svg>`,
+        calendar: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="16" y1="2" x2="16" y2="6"></line>
+          <line x1="8" y1="2" x2="8" y2="6"></line>
+          <line x1="3" y1="10" x2="21" y2="10"></line>
+          <path d="m9 16 2 2 4-4"></path>
+        </svg>`,
+        globe: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="2" y1="12" x2="22" y2="12"></line>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+        </svg>`,
+        finance: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="12" y1="1" x2="12" y2="23"></line>
+          <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+        </svg>`,
+        search: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          <circle cx="11" cy="11" r="3"></circle>
+        </svg>`
+      };
+
+      /**
+       * Generates SVG stars with fractional fill support
+       */
+      function renderStarsHTML(rating, maxStars = 5) {
+        let starsHtml = '';
+        for (let i = 1; i <= maxStars; i++) {
+          const fillPercentage = Math.max(0, Math.min(100, Math.round((rating - (i - 1)) * 100)));
+          const uniqueId = `star-grad-${Math.random().toString(36).substring(2, 9)}`;
+
+          starsHtml += `
+            <div class="star-mask" title="${rating} out of 5 stars">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="${uniqueId}">
+                    <stop offset="${fillPercentage}%" stop-color="var(--star-fill)"/>
+                    <stop offset="${fillPercentage}%" stop-color="var(--star-empty)"/>
+                  </linearGradient>
+                </defs>
+                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" 
+                      fill="url(#${uniqueId})" stroke="none" />
+              </svg>
+            </div>
+          `;
+        }
+        return starsHtml;
+      }
+
+      /**
+       * Application State
+       */
+      const state = {
+        searchQuery: '',
+        selectedCategory: 'All',
+        sortBy: 'newest'
+      };
+
+      /**
+       * DOM Elements cache
+       */
+      const dom = {
+        html: document.documentElement,
+        themeToggle: document.getElementById('theme-toggle'),
+        sunIcon: document.querySelector('.sun-icon'),
+        moonIcon: document.querySelector('.moon-icon'),
+        menuToggle: document.getElementById('menu-toggle'),
+        mobileMenu: document.getElementById('mobile-menu'),
+        searchInput: document.getElementById('search-input'),
+        searchClear: document.getElementById('search-clear'),
+        sortSelect: document.getElementById('sort-select'),
+        categoryFilters: document.getElementById('category-filters'),
+        projectsGrid: document.getElementById('projects-grid'),
+        resultsCount: document.getElementById('results-count'),
+        activeFilterIndicator: document.getElementById('active-filter-indicator'),
+        backToTop: document.getElementById('back-to-top'),
+        // Modal elements
+        modal: document.getElementById('project-modal'),
+        modalClose: document.getElementById('modal-close'),
+        modalDismiss: document.getElementById('modal-dismiss'),
+        modalTitle: document.getElementById('modal-title'),
+        modalDesc: document.getElementById('modal-description'),
+        modalIcon: document.getElementById('modal-icon'),
+        modalStatus: document.getElementById('modal-status'),
+        modalCategory: document.getElementById('modal-category'),
+        modalType: document.getElementById('modal-type'),
+        modalStars: document.getElementById('modal-stars'),
+        modalRatingNum: document.getElementById('modal-rating-num'),
+        modalFeatures: document.getElementById('modal-features'),
+        modalTech: document.getElementById('modal-tech'),
+        modalVisitLink: document.getElementById('modal-visit-link'),
+        navLinks: document.querySelectorAll('.site-header .nav-link, .mobile-menu .nav-link')
+      };
+
+      /**
+       * Theme Management with LocalStorage persistence
+       */
+      function initTheme() {
+        const savedTheme = localStorage.getItem('my_web_projects_theme') || 'dark';
+        applyTheme(savedTheme);
+
+        dom.themeToggle.addEventListener('click', () => {
+          const currentTheme = dom.html.classList.contains('light') ? 'light' : 'dark';
+          const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+          applyTheme(newTheme);
+          localStorage.setItem('my_web_projects_theme', newTheme);
+        });
+      }
+
+      function applyTheme(theme) {
+        if (theme === 'light') {
+          dom.html.classList.remove('dark');
+          dom.html.classList.add('light');
+          dom.sunIcon.style.display = 'none';
+          dom.moonIcon.style.display = 'block';
+        } else {
+          dom.html.classList.remove('light');
+          dom.html.classList.add('dark');
+          dom.sunIcon.style.display = 'block';
+          dom.moonIcon.style.display = 'none';
+        }
+      }
+
+      /**
+       * Filter, Search & Sort Logic
+       */
+      function getFilteredProjects() {
+        return projectsData.filter(project => {
+          // Category matching: 'All' matches all. If 'Web Apps' selected, matches type === 'Web App' or category === 'Web Apps'.
+          const matchesCategory =
+            state.selectedCategory === 'All' ||
+            project.category.toLowerCase() === state.selectedCategory.toLowerCase() ||
+            (state.selectedCategory === 'Web Apps' && project.type === 'Web App');
+
+          // Search matching: name, description, features, tech, category
+          const q = state.searchQuery.trim().toLowerCase();
+          if (!q) return matchesCategory;
+
+          const matchesSearch =
+            project.name.toLowerCase().includes(q) ||
+            project.description.toLowerCase().includes(q) ||
+            project.category.toLowerCase().includes(q) ||
+            project.type.toLowerCase().includes(q) ||
+            project.features.some(f => f.toLowerCase().includes(q)) ||
+            project.technology.some(t => t.toLowerCase().includes(q));
+
+          return matchesCategory && matchesSearch;
+        }).sort((a, b) => {
+          if (state.sortBy === 'rating') {
+            return b.rating - a.rating;
+          } else if (state.sortBy === 'az') {
+            return a.name.localeCompare(b.name);
+          } else {
+            // Newest (by order id)
+            return a.order - b.order;
+          }
+        });
+      }
+
+      /**
+       * Render Projects Grid
+       */
+      function renderProjects() {
+        const filtered = getFilteredProjects();
+
+        // Update counts
+        dom.resultsCount.textContent = `Showing ${filtered.length} of ${projectsData.length} projects`;
+        dom.activeFilterIndicator.textContent = `Category: ${state.selectedCategory}`;
+
+        if (filtered.length === 0) {
+          dom.projectsGrid.innerHTML = `
+            <div class="empty-state">
+              <div class="empty-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  <line x1="8" y1="11" x2="14" y2="11"></line>
+                </svg>
+              </div>
+              <h3 class="empty-title">No projects found</h3>
+              <p class="empty-desc">No projects matched your search criteria "${escapeHtml(state.searchQuery)}". Try adjusting your filters or search keyword.</p>
+              <button class="btn btn-secondary" onclick="window.clearSearchAndFilters()">
+                <span>Clear Search</span>
+              </button>
+            </div>
+          `;
+          return;
+        }
+
+        dom.projectsGrid.innerHTML = filtered.map(project => {
+          const iconSvg = projectIcons[project.icon] || projectIcons.globe;
+          const starsHtml = renderStarsHTML(project.rating);
+
+          // Top features preview (up to 4)
+          const featuresPreviewHtml = project.features.slice(0, 4).map(feature => `
+            <li class="feature-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              <span>${escapeHtml(feature)}</span>
+            </li>
+          `).join('');
+
+          // Tech tags preview
+          const techTagsHtml = project.technology.map(tech => `
+            <span class="tech-tag">${escapeHtml(tech)}</span>
+          `).join('');
+
+          return `
+            <article class="project-card" data-id="${project.id}" tabindex="0" role="button" aria-label="View details for ${escapeHtml(project.name)}">
+              <div class="card-top">
+                <div class="card-icon-wrap" aria-hidden="true">
+                  ${iconSvg}
+                </div>
+                <div class="card-meta-badges">
+                  <span class="status-badge">
+                    <span class="status-dot"></span> ${escapeHtml(project.status)}
+                  </span>
+                  <span class="category-pill">${escapeHtml(project.category)}</span>
+                </div>
+              </div>
+
+              <h3 class="project-title">${escapeHtml(project.name)}</h3>
+              <div class="project-type">${escapeHtml(project.type)}</div>
+              <p class="project-desc">${escapeHtml(project.description)}</p>
+
+              <div class="card-rating-block">
+                <div class="rating-stars">
+                  ${starsHtml}
+                </div>
+                <div class="rating-val-wrap">
+                  <span class="rating-num">${project.rating.toFixed(1)}/5</span>
+                  <span class="rating-label">My Rating</span>
+                </div>
+              </div>
+
+              <ul class="features-list">
+                ${featuresPreviewHtml}
+              </ul>
+
+              <div class="tech-tags">
+                ${techTagsHtml}
+              </div>
+
+              <div class="card-actions">
+                <a href="${escapeHtml(project.url)}" target="_blank" rel="noopener noreferrer" class="btn-card-visit" onclick="event.stopPropagation();">
+                  <span>Visit Website</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </a>
+                <button type="button" class="btn-card-details" onclick="window.openProjectModal('${project.id}'); event.stopPropagation();" aria-label="Open project details modal">
+                  Details
+                </button>
+              </div>
+            </article>
+          `;
+        }).join('');
+
+        // Attach card click handlers for modal
+        dom.projectsGrid.querySelectorAll('.project-card').forEach(card => {
+          const id = card.getAttribute('data-id');
+          card.addEventListener('click', () => {
+            window.openProjectModal(id);
+          });
+          card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              window.openProjectModal(id);
+            }
+          });
+        });
+      }
+
+      function escapeHtml(string) {
+        if (!string) return '';
+        return String(string)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      /**
+       * Global Helper to Clear Search & Filters
+       */
+      window.clearSearchAndFilters = function() {
+        state.searchQuery = '';
+        state.selectedCategory = 'All';
+        dom.searchInput.value = '';
+        dom.searchClear.classList.remove('visible');
+
+        dom.categoryFilters.querySelectorAll('.filter-btn').forEach(btn => {
+          if (btn.getAttribute('data-category') === 'All') {
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+          } else {
+            btn.classList.remove('active');
+            btn.setAttribute('aria-selected', 'false');
+          }
+        });
+
+        renderProjects();
+      };
+
+      /**
+       * Project Details Modal Logic
+       */
+      window.openProjectModal = function(projectId) {
+        const project = projectsData.find(p => p.id === projectId);
+        if (!project) return;
+
+        dom.modalTitle.textContent = project.name;
+        dom.modalDesc.textContent = project.description;
+        dom.modalIcon.innerHTML = projectIcons[project.icon] || projectIcons.globe;
+        dom.modalCategory.textContent = project.category;
+        dom.modalType.textContent = project.type;
+        dom.modalStatus.innerHTML = `<span class="status-dot"></span> ${project.status}`;
+        dom.modalStars.innerHTML = renderStarsHTML(project.rating);
+        dom.modalRatingNum.textContent = `${project.rating.toFixed(1)}/5`;
+        dom.modalVisitLink.href = project.url;
+
+        // Render modal features
+        dom.modalFeatures.innerHTML = project.features.map(f => `
+          <div class="modal-feature-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>${escapeHtml(f)}</span>
+          </div>
+        `).join('');
+
+        // Render modal tech tags
+        dom.modalTech.innerHTML = project.technology.map(t => `
+          <span class="tech-tag" style="font-size:0.8rem; padding:0.35rem 0.75rem;">${escapeHtml(t)}</span>
+        `).join('');
+
+        dom.modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        dom.modalClose.focus();
+      };
+
+      function closeModal() {
+        dom.modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      dom.modalClose.addEventListener('click', closeModal);
+      dom.modalDismiss.addEventListener('click', closeModal);
+
+      // Close modal on click outside
+      dom.modal.addEventListener('click', (e) => {
+        if (e.target === dom.modal) {
+          closeModal();
+        }
+      });
+
+      // Close modal on ESC key
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && dom.modal.classList.contains('open')) {
+          closeModal();
+        }
+      });
+
+      /**
+       * Search & Filter Event Listeners
+       */
+      dom.searchInput.addEventListener('input', (e) => {
+        state.searchQuery = e.target.value;
+        if (state.searchQuery.length > 0) {
+          dom.searchClear.classList.add('visible');
+        } else {
+          dom.searchClear.classList.remove('visible');
+        }
+        renderProjects();
+      });
+
+      dom.searchClear.addEventListener('click', () => {
+        dom.searchInput.value = '';
+        state.searchQuery = '';
+        dom.searchClear.classList.remove('visible');
+        dom.searchInput.focus();
+        renderProjects();
+      });
+
+      dom.sortSelect.addEventListener('change', (e) => {
+        state.sortBy = e.target.value;
+        renderProjects();
+      });
+
+      dom.categoryFilters.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          dom.categoryFilters.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          state.selectedCategory = btn.getAttribute('data-category');
+          renderProjects();
+        });
+      });
+
+      /**
+       * Mobile Navigation Toggle
+       */
+      dom.menuToggle.addEventListener('click', () => {
+        const isOpen = dom.mobileMenu.classList.toggle('open');
+        dom.menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+
+      dom.mobileMenu.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          dom.mobileMenu.classList.remove('open');
+          dom.menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      /**
+       * Back to Top & Active Navigation Highlight on Scroll
+       */
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+
+        // Back to top visibility
+        if (scrollY > 300) {
+          dom.backToTop.classList.add('visible');
+        } else {
+          dom.backToTop.classList.remove('visible');
+        }
+
+        // Active navigation link tracking
+        const sections = ['hero', 'projects', 'about', 'features'];
+        let currentSection = 'hero';
+
+        sections.forEach(sectionId => {
+          const sectionEl = document.getElementById(sectionId);
+          if (sectionEl) {
+            const rect = sectionEl.getBoundingClientRect();
+            if (rect.top <= 140 && rect.bottom >= 140) {
+              currentSection = sectionId;
+            }
+          }
+        });
+
+        dom.navLinks.forEach(link => {
+          const href = link.getAttribute('href');
+          if (href === `#${currentSection}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }, { passive: true });
+
+      dom.backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      /**
+       * Initial Mount
+       */
+      document.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        renderProjects();
+      });
+    </script>
+  </body>
+</html>
